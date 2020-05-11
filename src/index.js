@@ -9,7 +9,9 @@ Amplify.configure(awsconfig);
 
 
 ReactDOM.render(
-  <App />,
+  <center>
+    <App />
+  </center>,
   document.getElementById('root')
 );
 

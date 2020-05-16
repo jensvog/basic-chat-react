@@ -1,5 +1,6 @@
 import React from 'react';
 import Channels from './Channels'
+import Entries from './Entries'
 import './App.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Auth } from 'aws-amplify';
@@ -10,6 +11,7 @@ import {
   Link,
   useParams
 } from "react-router-dom";
+const axios = require('axios').default;
 
 class Heading extends React.Component {
   componentDidMount() {
@@ -46,30 +48,6 @@ const Start = () => {
   )
 }
 
-const Entries = () => {
-  let { channelId } = useParams();
-  return (
-    <>
-      <div>
-        <div class="heading">
-          <em>User wrote today:</em>
-        </div>
-        <div class="list">
-          Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app.Hello and welcome to chat app.Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app.Hello and welcome to chat app. Hello and welcome to chat app.Hello and welcome to chat app.
-        </div>
-      </div>
-      <div>
-        <div class="heading">
-          <em>User wrote today:</em>
-        </div>
-        <div class="list">
-          Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app.Hello and welcome to chat app.Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app. Hello and welcome to chat app.Hello and welcome to chat app. Hello and welcome to chat app.Hello and welcome to chat app.
-        </div>
-      </div>
-    </>
-  )
-}
-
 class App extends React.Component {
   render() {
     return (
@@ -87,9 +65,7 @@ class App extends React.Component {
             </td>
             <td>
               <Switch>
-                <Route path="/channel/:channelId">
-                  <Entries />
-                </Route>
+                <Route path="/channel/:channelId" component={Entries} />
                 <Route path="/">
                   <Start />
                 </Route>

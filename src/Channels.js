@@ -64,7 +64,7 @@ class Channels extends React.Component {
     return (
       <>
         <div>
-          <div class="heading">
+          <div className="heading">
             <em># Channels</em>
           </div>
           {this.state.channels.map((channel) => (

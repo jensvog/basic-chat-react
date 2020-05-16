@@ -1,5 +1,12 @@
 import React from 'react';
 import { Auth } from 'aws-amplify';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
 
 const axios = require('axios').default;
 
@@ -47,6 +54,9 @@ class Channels extends React.Component {
       });
     })
   }
+  getLink(channelId) {
+    return `/channel/${channelId}`
+  }
   state = {
     channels: []
   }
@@ -59,7 +69,7 @@ class Channels extends React.Component {
           </div>
           {this.state.channels.map((channel) => (
             <div class="list">
-              <a href={channel.channelId}>{channel.name}</a>
+              <Link to={this.getLink(channel.channelId)}>{channel.name}</Link>
             </div>
           ))}
         </div>

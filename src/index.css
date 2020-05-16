@@ -5,9 +5,54 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  font-size: small;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+h1 {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+table {
+  max-width: 700px;
+  margin: auto;
+}
+td {
+  vertical-align: top;
+}
+td.channels {
+  max-width: 250px;
+}
+div {
+  border: 1px solid lightgrey;
+  border-radius: 7px;
+  padding: 25px;
+  margin: 10px;
+}
+div.root {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+div.heading {
+  border: 0px solid;
+  padding: 0px;
+  margin: 0px;
+}
+div.list {
+  border: 0px solid;
+  margin: 0px;
+  margin-top: 10px;
+  padding: 0px;
+}
+
+a {
+  color: goldenrod;
+}
+a:hover {
+  text-decoration: none;
 }

@@ -75,7 +75,7 @@ class Entries extends React.Component {
         {this.state.entries.map((entry) => (
           <div>
             <div class="heading">
-              <em>{entry.userId} wrote at {entry.createdAt}:</em>
+              <em>{entry.userName} wrote at {entry.createdAt}:</em>
           </div>
           <div class="list">
             {entry.message}

@@ -2,27 +2,9 @@ import React from 'react';
 import Channels from './Channels'
 import Entries from './Entries'
 import Heading from './Heading'
+import Start from './Start'
 import { withAuthenticator } from '@aws-amplify/ui-react';
-
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams
-} from "react-router-dom";
-const axios = require('axios').default;
-
-const Start = () => {
-  return (
-    <div>
-      <div class="heading">Please choose a channel</div>
-    </div>
-  )
-}
-
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
   render() {

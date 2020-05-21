@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Auth } from 'aws-amplify';
 import {
   BrowserRouter as Router,

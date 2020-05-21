@@ -2,7 +2,6 @@ import React from 'react';
 import Channels from './Channels'
 import Entries from './Entries'
 import Update from './Update'
-import './App.css';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Auth } from 'aws-amplify';
 import {

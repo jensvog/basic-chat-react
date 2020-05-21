@@ -1,8 +1,10 @@
 import React from 'react';
 import Channels from './Channels'
 import Entries from './Entries'
+import Heading from './Heading'
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { Auth } from 'aws-amplify';
+
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,33 +13,6 @@ import {
   useParams
 } from "react-router-dom";
 const axios = require('axios').default;
-
-class Heading extends React.Component {
-  componentDidMount() {
-    Auth.currentSession()
-    .then(user => {
-      const username = user.getIdToken().decodePayload()['cognito:username'];
-      this.setState({
-        username
-      })
-    });
-  }
-  logOut() {
-    Auth.signOut();
-    return false;
-  }
-  state = {
-    username: ''
-  }
-  render () {
-    return (
-    <div>
-      <h1>Basic Chat Application</h1><br />
-      Welcome '{this.state.username}'. <a href="#" onClick={this.logOut}>Sign Out</a>.
-    </div>
-    )
-  }
-}
 
 const Start = () => {
   return (

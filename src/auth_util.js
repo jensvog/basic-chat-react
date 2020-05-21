@@ -8,3 +8,11 @@ export async function getUserName() {
 export async function signOut() {
     Auth.signOut();
 }
+
+export async function getHeaderConfig() {
+    const session = await Auth.currentSession();
+    const token = session.getIdToken().getJwtToken();
+    return {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+}

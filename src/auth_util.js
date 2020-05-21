@@ -16,3 +16,8 @@ export async function getHeaderConfig() {
         headers: { Authorization: `Bearer ${token}` }
     };
 }
+
+export async function getUserId() {
+    const session = await Auth.currentSession();
+    return session.getIdToken().decodePayload()['sub'];
+}

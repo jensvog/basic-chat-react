@@ -1,5 +1,6 @@
 import React from 'react';
 import { getHeaderConfig, getUserId } from './auth_util'
+import { Hub } from 'aws-amplify';
 
 const axios = require('axios').default;
 
@@ -11,8 +12,10 @@ class Entries extends React.Component {
     this.updateEntry = this.updateEntry.bind(this)
     this.showEntry = this.showEntry.bind(this);
     this.showUpdateDelete = this.showUpdateDelete.bind(this)
+    this.updateUser = this.updateUser.bind(this);
   }
   componentDidMount() {
+    Hub.listen('auth', this.updateUser)
     this.update()
   }
   componentDidUpdate(prevProps) {
@@ -30,6 +33,14 @@ class Entries extends React.Component {
       userId
     })
   }
+  async updateUser(data) {
+    const { payload } = data
+      if (payload.event === 'signIn' ||
+          payload.event === 'signUp') {
+        const userId = await getUserId();
+        this.setState({userId});
+      }
+  }
   async createEntry() {
     let { channelId } = this.props.match.params
     const config = await getHeaderConfig();
@@ -40,7 +51,7 @@ class Entries extends React.Component {
     const response = await axios.post('https://qnjkiuaakb.execute-api.eu-central-1.amazonaws.com/dev/createEntry', request, config)
 
     this.setState((state) => ({
-      entries: new Array().concat(response.data, state.entries),
+      entries: [].concat(response.data, state.entries),
     }))
   }
   async deleteEntry(entryId) {
@@ -50,7 +61,7 @@ class Entries extends React.Component {
 
     if (response.status === 200) {
       this.setState(function(state) {
-        const elementsIndex = state.entries.findIndex(element => element.entryId == entryId)
+        const elementsIndex = state.entries.findIndex(element => element.entryId === entryId)
         let newEntries = [...state.entries]
         newEntries.splice(elementsIndex, 1)
 
@@ -92,17 +103,17 @@ class Entries extends React.Component {
     }
   }
   showEntry(entry) {
-    if (this.state.editEntryId == entry.entryId) {
+    if (this.state.editEntryId === entry.entryId) {
       return (
-        <div class="list" id={entry.entryId}>
-          <textarea ref="update">{entry.message}</textarea>
+        <div className="litem" id={entry.entryId}>
+          <textarea ref="update" defaultValue={entry.message}></textarea>
           <button onClick={() => this.updateEntry(this.state.editEntryId)}>Update</button>
           <button onClick={() => this.setState({editEntryId: ''})}>Cancel</button>
         </div>
       )
     } else {
       return (
-        <div class="list" id={entry.entryId}>
+        <div className="litem" id={entry.entryId}>
           {entry.message}
         </div>
       )
@@ -112,9 +123,9 @@ class Entries extends React.Component {
     if (this.state.userId === entry.userId &&
         this.state.editEntryId !== entry.entryId) {
       return (
-        <div class="list">
-          <a href="#" onClick={() => this.setState({editEntryId: entry.entryId})}>Update</a>&nbsp;
-          <a href="#" onClick={() => this.deleteEntry(entry.entryId)}>Delete</a>
+        <div className="litem">
+          <a href="#!" onClick={() => this.setState({editEntryId: entry.entryId})}>Update</a>&nbsp;
+          <a href="#!" onClick={() => this.deleteEntry(entry.entryId)}>Delete</a>
         </div>
       )
     } else {
@@ -130,17 +141,17 @@ class Entries extends React.Component {
     return (
       <>
         <div>
-          <div class="heading">
+          <div className="heading">
             <em>Write a post</em>
           </div>
-          <div class="list">
-            <textarea ref="post">Write a post</textarea>
+          <div className="litem">
+            <textarea ref="post" defaultValue="Write a post"></textarea>
             <button onClick={this.createEntry}>Post</button>
           </div>
         </div>
         {this.state.entries.map((entry) => (
-          <div>
-            <div class="heading">
+          <div key={entry.entryId}>
+            <div className="heading">
               <em>{entry.userName} wrote at {entry.createdAt}:</em>
           </div>
           {this.showEntry(entry)}

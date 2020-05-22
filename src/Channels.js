@@ -41,18 +41,18 @@ class Channels extends React.Component {
             <em># Channels</em>
           </div>
           {this.state.channels.map((channel) => (
-            <div class="list">
+            <div key={channel.channelId} className="litem">
               <Link to={this.getLink(channel.channelId)}>{channel.name}</Link>
             </div>
           ))}
         </div>
-        <div class="channels">
-          <div class="heading">
+        <div className="channels">
+          <div className="heading">
             <em># Create new Channel</em>
           </div>
-          <div class="list">
+          <div className="litem">
             <input type="text" ref="newChannel"></input><br />
-            <a href="#" onClick={this.createChannel}>+</a>
+            <a href="#!" onClick={this.createChannel}>+</a>
           </div>
         </div>
       </>

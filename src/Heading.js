@@ -1,12 +1,26 @@
 import React from 'react';
 import { getUserName, signOut } from './auth_util'
+import { Hub } from 'aws-amplify';
 
 class Heading extends React.Component {
+  constructor(props) {
+    super(props);
+    this.updateUser = this.updateUser.bind(this);
+  }
     async componentDidMount() {
       const userName = await getUserName();
       this.setState({
         userName
       })
+      Hub.listen('auth', this.updateUser)
+    }
+    async updateUser(data) {
+      const { payload } = data
+      if (payload.event === 'signIn' ||
+          payload.event === 'signUp') {
+        const userName = await getUserName();
+        this.setState({userName});
+      }
     }
     state = {
       userName: ''
@@ -15,7 +29,7 @@ class Heading extends React.Component {
       return (
       <div>
         <h1>Basic Chat Application</h1><br />
-        Welcome '{this.state.userName}'. <a href="#" onClick={signOut}>Sign Out</a>.
+        Welcome '{this.state.userName}'. <a href="#!" onClick={signOut}>Sign Out</a>.
       </div>
       )
     }

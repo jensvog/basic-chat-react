@@ -43,7 +43,7 @@ div.heading {
   padding: 0px;
   margin: 0px;
 }
-div.list {
+div.litem {
   border: 0px solid;
   margin: 0px;
   margin-top: 10px;
@@ -73,4 +73,9 @@ button {
 button:hover {
   background-color: goldenrod;
   color: white;
+}
+
+textarea {
+  width:100%;
+  height: 50px;
 }

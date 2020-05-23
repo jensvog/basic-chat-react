@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUserName, signOut } from './auth_util'
+import { getUserName, signOut, isLoggedIn } from './auth_util'
 import { Hub } from 'aws-amplify';
 
 class Heading extends React.Component {
@@ -8,13 +8,17 @@ class Heading extends React.Component {
     this.updateUser = this.updateUser.bind(this);
   }
     async componentDidMount() {
-      const userName = await getUserName();
-      this.setState({
-        userName
-      })
+      const loggedIn = await isLoggedIn();
+      if (loggedIn) {
+        const userName = await getUserName();
+        this.setState({
+          userName
+        })
+      }
       Hub.listen('auth', this.updateUser)
     }
     async updateUser(data) {
+      console.log(data)
       const { payload } = data
       if (payload.event === 'signIn' ||
           payload.event === 'signUp') {

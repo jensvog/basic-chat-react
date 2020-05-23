@@ -1,5 +1,5 @@
 import React from 'react';
-import { getHeaderConfig, getUserId } from './auth_util'
+import { getHeaderConfig, getUserId, isLoggedIn } from './auth_util'
 import { Hub } from 'aws-amplify';
 
 const axios = require('axios').default;
@@ -24,14 +24,17 @@ class Entries extends React.Component {
     }
   }
   async update() {
-    let { channelId } = this.props.match.params
-    const config = await getHeaderConfig();
-    const userId = await getUserId();
-    const response = await axios.get(`https://qnjkiuaakb.execute-api.eu-central-1.amazonaws.com/dev/chats/${channelId}`, config);
-    this.setState({
-      entries: response.data,
-      userId
-    })
+    const loggedIn = await isLoggedIn();
+    if (loggedIn) {
+      let { channelId } = this.props.match.params
+      const config = await getHeaderConfig();
+      const userId = await getUserId();
+      const response = await axios.get(`https://qnjkiuaakb.execute-api.eu-central-1.amazonaws.com/dev/chats/${channelId}`, config);
+      this.setState({
+        entries: response.data,
+        userId
+      })
+    }
   }
   async updateUser(data) {
     const { payload } = data

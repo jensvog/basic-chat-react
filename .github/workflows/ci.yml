@@ -14,7 +14,7 @@ jobs:
     - run: 'echo "$AWS_EXPORT" > src/aws-exports.js'
       shell: bash
       env:
-        SSH_KEY: ${{secrets.AWS_EXPORT}}
+        AWS_EXPORT: ${{secrets.AWS_EXPORT}}
     - run: npm ci
     - run: npm run build
     - uses: jakejarvis/s3-sync-action@master

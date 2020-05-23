@@ -18,7 +18,6 @@ class Heading extends React.Component {
       Hub.listen('auth', this.updateUser)
     }
     async updateUser(data) {
-      console.log(data)
       const { payload } = data
       if (payload.event === 'signIn' ||
           payload.event === 'signUp') {

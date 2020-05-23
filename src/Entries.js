@@ -41,6 +41,7 @@ class Entries extends React.Component {
       if (payload.event === 'signIn' ||
           payload.event === 'signUp') {
         const userId = await getUserId();
+        await this.update();
         this.setState({userId});
       }
   }

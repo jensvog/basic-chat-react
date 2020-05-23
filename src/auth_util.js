@@ -2,7 +2,6 @@ import { Auth } from 'aws-amplify';
 
 export async function getUserName() {
     const session = await Auth.currentSession();
-    console.log(session)
     return session.getIdToken().decodePayload()['cognito:username'];
 }
 
@@ -11,9 +10,7 @@ export async function signOut() {
 }
 
 export async function getHeaderConfig() {
-    console.log('Helloe')
     const session = await Auth.currentSession();
-    console.log(session)
     const token = session.getIdToken().getJwtToken();
     return {
         headers: { Authorization: `Bearer ${token}` }

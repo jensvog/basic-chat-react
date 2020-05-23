@@ -1,6 +1,7 @@
 import React from 'react';
 import { getHeaderConfig, isLoggedIn } from './auth_util'
 import { Link } from "react-router-dom";
+import { Hub } from 'aws-amplify'
 
 const axios = require('axios').default;
 
@@ -8,8 +9,21 @@ class Channels extends React.Component {
   constructor(props) {
     super(props);
     this.createChannel = this.createChannel.bind(this);
+    this.updateChannels = this.updateChannels.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
   async componentDidMount() {
+    await this.updateChannels();
+    Hub.listen('auth', this.updateUser)
+  }
+  async updateUser(data) {
+  const { payload } = data
+  if (payload.event === 'signIn' ||
+      payload.event === 'signUp') {
+        await this.updateChannels()
+      }
+  }
+  async updateChannels() {
     const loggedIn = await isLoggedIn();
     if (loggedIn) {
       const config = await getHeaderConfig();

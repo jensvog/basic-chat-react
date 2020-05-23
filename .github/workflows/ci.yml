@@ -11,6 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1.4.2
+    - run: 'echo "$AWS_EXPORT" > src/aws-export.js'
+      shell: bash
+      env:
+        SSH_KEY: ${{secrets.AWS_EXPORT}}
     - run: npm ci
     - run: npm run build
     - uses: jakejarvis/s3-sync-action@master

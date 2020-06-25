@@ -1,0 +1,20 @@
+{
+    "react": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-basicchatreact-react-190638-authRole",
+            "UnauthRoleArn": "arn:aws:iam::701273155308:role/amplify-basicchatreact-react-190638-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::701273155308:role/amplify-basicchatreact-react-190638-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "amplify-basicchatreact-react-190638-deployment",
+            "UnauthRoleName": "amplify-basicchatreact-react-190638-unauthRole",
+            "StackName": "amplify-basicchatreact-react-190638",
+            "StackId": "arn:aws:cloudformation:eu-central-1:701273155308:stack/amplify-basicchatreact-react-190638/7fa93480-9217-11ea-93c1-026925054f2e",
+            "AmplifyAppId": "d10kivp7v2sgd"
+        },
+        "categories": {
+            "auth": {
+                "basicchatreact96b573c6": {}
+            }
+        }
+    }
+}
